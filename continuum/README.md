@@ -80,3 +80,15 @@ Results (**validated against OPV Table 1**):
 This is the critical spectrum the earlier methods could not reach. What remains open is narrower:
 matching the fork's *exact* IR coupling ratios to the specific trajectory from this fixed point
 (a full flow integration), and the scheme-dependent 2-vs-3 relevant-direction count.
+
+## Update (2026-07-14, cont.): full-flow trajectory test (`opv_traj_fast.py`)
+
+Integrated the FULL OPV flow (numeric, β(g) by polynomial Taylor division) from the exact NGFP
+toward the IR, tracking the fork's flow-invariant ratios r_n = g_n g₁ⁿ⁻²/g₂ⁿ⁻¹. Validated:
+β(g*)=0 and the flow-Jacobian exponents reproduce (4, 2.05). **Result (partial/honest):** a
+trajectory on the 2-dim relevant surface brings the *leading* ratios near the fork's
+(r₄≈2.0 to a few %, r₃ to ~20%), but r₅, r₆ diverge (wrong sign / factor 2–4), and the truncated
+flow hits a Landau pole (t≈−3.2) before the deep IR. So the fork's low-order structure is roughly
+compatible with an AS trajectory, but its exact log-structure ratios are **not** reproduced within
+this N=6 truncation; whether the higher-order mismatch is physical or truncation artifact is
+unresolved. The critical spectrum (above) is solid; this trajectory test is the honest open edge.
