@@ -92,3 +92,14 @@ flow hits a Landau pole (t≈−3.2) before the deep IR. So the fork's low-order
 compatible with an AS trajectory, but its exact log-structure ratios are **not** reproduced within
 this N=6 truncation; whether the higher-order mismatch is physical or truncation artifact is
 unresolved. The critical spectrum (above) is solid; this trajectory test is the honest open edge.
+
+## Update (2026-07-14, cont.): truncation convergence study (`opv_traj_conv.py`)
+
+Pushed the trajectory test to N=6,8,10,12 to separate physics from truncation. Clean split:
+the **critical exponent CONVERGES** (θ₂: 2.046→2.030→2.024→2.021, onto OPV's 2.02 — fixed point
+solid), but the **trajectory ratios do NOT** (r₅: 10→22→−0.5→0.3; r₆: 37→134→−0.3→0.2;
+min-distance to fork doesn't shrink; Landau pole at t≈−2 to −3 every order). The N=6 "r₄≈2.0"
+near-match does not survive higher order. Verdict: the polynomial-truncated flow is not a reliable
+instrument for the fork's exact embedding — the question is **undecided** (truncation-limited,
+never reaches the IR), not refuted. Deciding it needs the same global/non-polynomial machinery the
+spectrum required. The spectrum result stands; this is the honest final edge.
