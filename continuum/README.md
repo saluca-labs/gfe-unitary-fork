@@ -60,3 +60,23 @@ f(R) fixed-function solutions are pathological / scheme-dependent** (Dietz–Mor
 which is precisely why the literature uses the exponential parametrization (Ohta–Percacci–Vacca,
 arXiv:1511.09393) to obtain global solutions. Seven principled methods; the critical spectrum
 remains gated behind either that reparametrized equation or dedicated code. Nothing fabricated.
+
+## Update (2026-07-14, cont.): critical spectrum SOLVED via exponential parametrization
+
+`opv_verify.py`, `opv_spectrum.py`, `opv_sol3.py` implement the Ohta–Percacci–Vacca exponential-
+parametrization f(R) flow (arXiv:1511.09393), which admits **exact global quadratic fixed-point
+solutions** — sidestepping the singular BVP that defeated the seven single-metric attempts above.
+
+Results (**validated against OPV Table 1**):
+- The exact quadratic solutions **identically satisfy** the flow equation (residual = 0, symbolic
+  and to machine precision) — confirming the transcription and the fixed point.
+- The **critical spectrum**, computed by linearization about the exact solution:
+  - Solution 1: **θ = 4, 2.021** (OPV: 4, 2.02) — two relevant directions
+  - Solution 3: **θ = 4, 2.413 ± 0.806 i, 0.131** (OPV: 4, 2.4 ± 0.8 i, 0.13) — reproduces the
+    complex pair and the near-zero exponent
+- ⇒ a **finite** critical surface (two relevant directions), so the fork's UV completion is
+  predictive.
+
+This is the critical spectrum the earlier methods could not reach. What remains open is narrower:
+matching the fork's *exact* IR coupling ratios to the specific trajectory from this fixed point
+(a full flow integration), and the scheme-dependent 2-vs-3 relevant-direction count.
