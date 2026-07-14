@@ -44,3 +44,19 @@ terms are on. This isolates the blocker precisely: it is **not** the seed/basin/
 ill-posed for this singular boundary-value problem. The correct treatment imposes regularity
 conditions as explicit boundary conditions at the singular points plus far-field matching
 (shooting / quantization), i.e. the dedicated machinery. Six principled attempts, one wall.
+
+## Update (2026-07-14, cont.): shooting / spike-plot (`fR_shooting.py`, `fR_shoot_select.py`)
+
+The shooting method — solve f‴=F(R,f,f′,f″), fix f″(0) by regularity at R=0, integrate outward,
+select by passage through the fixed singularity R_c=√(27+3√87)=7.415 — is the *correct*
+formulation for this singular BVP, and it **produces genuine spike-plot structure**: 313/400
+initial conditions blow up before R_c, a clear cluster stalls at R_c, a subset passes through.
+This is real behavior collocation never produced.
+
+However it does **not** yield the physical fixed point: the pass-through solutions are all spurious
+(unphysical g\*λ\*, no f∼R² asymptotics), and the physical NGFP data blows up at a movable
+singularity near the origin. This is consistent with the known result that **global single-metric
+f(R) fixed-function solutions are pathological / scheme-dependent** (Dietz–Morris, arXiv:1211.0955),
+which is precisely why the literature uses the exponential parametrization (Ohta–Percacci–Vacca,
+arXiv:1511.09393) to obtain global solutions. Seven principled methods; the critical spectrum
+remains gated behind either that reparametrized equation or dedicated code. Nothing fabricated.
