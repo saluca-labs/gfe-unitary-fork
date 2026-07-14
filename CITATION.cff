@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated preprint."
+title: "A Ghost-Free, Unitary, Starobinsky-Class Realization of Gravity from Entropy — computation code"
+authors:
+  - family-names: Ruvalcaba
+    given-names: Cristian
+    affiliation: Saluca Labs
+  - name: "Saluca Agentic AI Research Team"
+    affiliation: Saluca Labs
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21361406
+    description: "Zenodo archive of the preprint and code (DOI mints on publication)"
+license: MIT
+date-released: 2026-07-14
+keywords:
+  - gravity from entropy
+  - asymptotic safety
+  - f(R) gravity
+  - functional renormalization group
+  - reproducibility
