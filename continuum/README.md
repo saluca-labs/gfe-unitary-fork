@@ -32,3 +32,15 @@ principled numerical attempts each failed for a well-understood reason, and a ve
 found **no turn-key public code** for the f(R) fixed-point spectrum (the field runs private
 Mathematica). That computation is well-posed but externally gated — the honest open edge stated
 in §8. No exponent, trajectory, or fixed point was ever fabricated.
+
+## Update (2026-07-14): homotopy-continuation attempt
+
+`fR_homotopy.py` deforms the equation E_τ = 768π²(2f−Rf′) − (A+B) − τ(C+D+E) from a solvable
+linear limit (τ=0, threshold terms off) to the full equation (τ=1), tracking the solution.
+Result: **τ=0 solves cleanly (residual ~1e−4), but for any τ>0 the residual grows linearly while
+the solution freezes** — least-squares finds no descent direction once the f-dependent (singular)
+terms are on. This isolates the blocker precisely: it is **not** the seed/basin/global convergence
+(homotopy addresses those), but the residual-at-all-nodes collocation *formulation*, which is
+ill-posed for this singular boundary-value problem. The correct treatment imposes regularity
+conditions as explicit boundary conditions at the singular points plus far-field matching
+(shooting / quantization), i.e. the dedicated machinery. Six principled attempts, one wall.
