@@ -16,6 +16,37 @@ attempts that failed.**
 > [`10.5281/zenodo.21361405`](https://doi.org/10.5281/zenodo.21361405) (resolves to the latest
 > version).
 
+## How it works
+
+The path that produced the critical spectrum, as the scripts run it. Every box is a script in
+`continuum/` (or the paper its closed forms were transcribed from); every arrow is what the
+script computes or prints. Nothing is passed between scripts at run time: each one carries its
+own copy of the inputs.
+
+```mermaid
+flowchart TD
+    OPV[("Ohta-Percacci-Vacca, arXiv:1511.09393<br/>flow eq. 3.18 and the closed-form<br/>quadratic fixed points (Table 1)")]
+    FE["fork_embedding.py<br/>Taylor series of f(R) = -4 ln(1 - beta R)<br/>invariant ratios r_n"]
+    V["opv_verify.py<br/>sympy residual of Solution 1"]
+    S1["opv_spectrum.py<br/>linearize about Solution 1,<br/>N=9 polynomial basis, eig of C^-1 B"]
+    S3["opv_sol3.py<br/>Solution 3: residual, then the same spectrum"]
+    TR["opv_trajectory.py (sympy, N=4)<br/>opv_traj_fast.py (N=6)<br/>opv_traj_conv.py (N=6, 8, 10, 12)<br/>beta(g), Jacobian at g*, RK4 toward the IR"]
+    O1["IS IDENTICALLY ZERO: True"]
+    O2["theta = 4.000, 2.021: 2 relevant"]
+    O3["theta = 4.000, 2.413 +/- 0.806i, 0.131"]
+    O4["r_3 = 4/3, r_4 = 2, r_5 = 16/5, r_6 = 16/3"]
+    O5["closest approach of r_3..r_6 to the fork per N:<br/>theta_2 converges, ratios do not (undecided)"]
+    OPV -- "Solution 1 transcribed" --> V --> O1
+    OPV -- "Solution 1 transcribed" --> S1 --> O2
+    OPV -- "Solution 3 transcribed" --> S3 --> O3
+    OPV -- "Solution 1 as g*" --> TR --> O5
+    FE --> O4
+    O4 -. "typed into the trajectory scripts as constants" .-> TR
+```
+
+Every number in the output boxes is printed by the script that points at it; see
+[Reproduce a result](#reproduce-a-result) for the commands.
+
 ## Status
 
 Research artifact, archived with the preprint (all commits dated 2026-07-14). Not a maintained
@@ -133,8 +164,99 @@ groups:
 - **Machinery check on the scalar LPA (Wilson-Fisher):** `lpa_flow.py`, `lpa_scan.py`,
   `lpa_robust.py`, `lpa_dbg.py`.
 
+The only run-time link between scripts is the `cheb.map_to` import. Everything else that looks
+like a dependency is a value typed into one script's source from another script's earlier
+output, and the `.npy` files some solvers save are read by no script and are not committed:
+
+```mermaid
+flowchart LR
+    subgraph FS["Fork structure"]
+        FE[fork_embedding.py]
+        SS[scalar_sector.py]
+        NG[ngfp_mechanism.py]
+    end
+    subgraph DM["Dietz-Morris single-metric f(R)"]
+        FP[fR_fixedpoint.py]
+        IM[fR_improved.py]
+        EX[fR_exponents_fork.py]
+        SP[fR_spectral_fp.py]
+        V2[fR_spectral_v2.py]
+        SD[fR_spectral_seeded.py]
+        HO[fR_homotopy.py]
+        SH[fR_shooting.py]
+        SL[fR_shoot_select.py]
+    end
+    subgraph OP["Ohta-Percacci-Vacca"]
+        OV[opv_verify.py]
+        OS[opv_spectrum.py]
+        O3[opv_sol3.py]
+        OT[opv_trajectory.py]
+        OF[opv_traj_fast.py]
+        OC[opv_traj_conv.py]
+    end
+    subgraph LP["Scalar LPA check"]
+        LF[lpa_flow.py]
+        LS[lpa_scan.py]
+        LR[lpa_robust.py]
+        LD[lpa_dbg.py]
+    end
+    CH["cheb.py<br/>map_to()"]
+    NPY[("continuum/*.npy<br/>written, never read")]
+    CH -- import --> SP
+    CH -- import --> V2
+    CH -- import --> SD
+    CH -- import --> HO
+    FP -. "N=8 fixed point copied as seed" .-> SD
+    FP -. "N=8 fixed point copied as seed" .-> HO
+    FP -. "same values, rounded, as nsolve seed" .-> IM
+    FP -. "same values, rounded, as nsolve seed" .-> EX
+    FE -. "fork ratios r_n as constants" .-> EX
+    FE -. "fork ratios r_n as constants" .-> OT
+    FE -. "fork ratios r_n as constants" .-> OF
+    FE -. "fork ratios r_n as constants" .-> OC
+    IM --> NPY
+    SP --> NPY
+    V2 --> NPY
+    SD --> NPY
+    HO --> NPY
+    SH --> NPY
+```
+
+Solid arrows are run-time imports or file writes; dotted arrows are values copied into the
+source by hand. Only `fR_spectral_seeded.py` (line 11) names its source, `fR_fixedpoint.py` at
+N=8; `fR_homotopy.py` carries the identical nine coefficients, and `fR_improved.py` and
+`fR_exponents_fork.py` carry the same values rounded, without a source comment, so those three
+edges are inferred from the values.
+The OPV scripts each carry their own transcription of the OPV equation and fixed points.
+
+### In this repository and not in it
+
+| part of the paper | in this repo | where it lives |
+|---|---|---|
+| Fork's place in RG theory space, scalar-sector power counting, AS mechanism toy | yes | `continuum/fork_embedding.py`, `scalar_sector.py`, `ngfp_mechanism.py` (MIT) |
+| f(R) fixed point, critical spectrum, trajectory tests, failed attempts | yes | `continuum/fR_*.py`, `opv_*.py`, `lpa_*.py`, `cheb.py` (MIT) |
+| Ghost-freedom tensor algebra (det G = 3βc/8 > 0) | no | done in Cadabra2; result stated in the preprint |
+| Starobinsky n_s, thawing dark energy | no | done in hi_class; result stated in the preprint |
+| Preprint text, PDF, LaTeX source | no | Zenodo, concept DOI [10.5281/zenodo.21361405](https://doi.org/10.5281/zenodo.21361405) (CC-BY-4.0) |
+
 The symbolic tensor algebra and cosmology in the paper (ghost-freedom, Starobinsky n_s, thawing
 dark energy) were done separately in Cadabra2 and hi_class and are not in this repository.
+
+### Reproduce a result
+
+Each result the README states, the script that re-derives it (no data files are involved: every
+input is in the script's source), and the record it backs, the preprint at concept DOI
+[10.5281/zenodo.21361405](https://doi.org/10.5281/zenodo.21361405).
+
+| result | command | what to look for |
+|---|---|---|
+| Fork invariant ratios r_3..r_6 = 4/3, 2, 16/5, 16/3 | `python continuum/fork_embedding.py` | the `r_3 =` to `r_6 =` lines |
+| Chebyshev instrument validated | `python continuum/cheb.py` | `=> PASS` |
+| OPV Solution 1 is an exact fixed point | `python continuum/opv_verify.py` | `IS IDENTICALLY ZERO: True` |
+| Solution 1 spectrum 4.000, 2.021, two relevant | `python continuum/opv_spectrum.py` | `=> 2 relevant; leading = +4.000` |
+| Solution 3 spectrum 4.000, 2.413 ± 0.806i, 0.131 | `python continuum/opv_sol3.py` | the first four exponents |
+| theta_2 converges, trajectory ratios do not | `python continuum/opv_traj_conv.py` | the N = 6, 8, 10, 12 table (not rerun on 2026-10-22) |
+| f(R) fixed point g\*λ\* in the CPR band | `python continuum/fR_fixedpoint.py` | the g\*λ\* line (over 5 minutes; not completed on 2026-10-22) |
 
 ## Screenshots
 
