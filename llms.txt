@@ -1,0 +1,26 @@
+# gfe-unitary-fork
+
+> Computation code (Python: numpy, scipy, sympy, mpmath) for the preprint "A Ghost-Free, Unitary, Starobinsky-Class Realization of Gravity from Entropy" by Cristian Ruvalcaba and the Saluca Agentic AI Research Team. MIT licence; the preprint is CC-BY-4.0 on Zenodo (concept DOI 10.5281/zenodo.21361405).
+
+This is a research archive, not a library: every file in continuum/ is a standalone script, run from the repo root with no arguments, that prints its result. Failed attempts are kept on purpose. The critical spectrum was obtained with the Ohta-Percacci-Vacca parametrization (opv_*.py), not with the earlier fR_*.py solvers; the README's original "not obtained" status is superseded (see its dated correction). The RG trajectory to the fork's exact IR ratios remains undecided.
+
+## Docs
+
+- [README](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/README.md): status and correction, install, quickstart, per-script timings
+- [continuum/README.md](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/README.md): per-script guide with dated outcomes of every attempt
+
+## Code
+
+- [continuum/opv_spectrum.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/opv_spectrum.py): critical exponents around OPV Solution 1 (4.000, 2.021)
+- [continuum/opv_sol3.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/opv_sol3.py): OPV Solution 3 residual and spectrum
+- [continuum/opv_verify.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/opv_verify.py): checks the exact quadratic fixed point satisfies the flow equation
+- [continuum/fR_fixedpoint.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/fR_fixedpoint.py): Dietz-Morris f(R) fixed point in polynomial truncation (slow, over 5 minutes)
+- [continuum/fork_embedding.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/fork_embedding.py): where the fork's f(R) sits in RG theory space
+- [continuum/cheb.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/cheb.py): Chebyshev differentiation instrument imported by the spectral solvers
+- [continuum/opv_traj_conv.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/opv_traj_conv.py): truncation convergence study of the trajectory test
+
+## Optional
+
+- [CITATION.cff](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/CITATION.cff): how to cite
+- [Zenodo record](https://doi.org/10.5281/zenodo.21361405): the preprint (PDF, LaTeX) and archived code
+- [llms-full.txt](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/llms-full.txt): README and continuum/README.md in one file

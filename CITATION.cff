@@ -1,16 +1,17 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the associated preprint."
-title: "A Ghost-Free, Unitary, Starobinsky-Class Realization of Gravity from Entropy — computation code"
+title: "A Ghost-Free, Unitary, Starobinsky-Class Realization of Gravity from Entropy - computation code"
 authors:
   - family-names: Ruvalcaba
     given-names: Cristian
     affiliation: Saluca Labs
   - name: "Saluca Agentic AI Research Team"
-    affiliation: Saluca Labs
+doi: 10.5281/zenodo.21361405
+repository-code: "https://github.com/saluca-labs/gfe-unitary-fork"
 identifiers:
   - type: doi
-    value: 10.5281/zenodo.21361406
-    description: "Zenodo archive of the preprint and code (DOI mints on publication)"
+    value: 10.5281/zenodo.21361405
+    description: "Zenodo concept DOI for the preprint and code archive (resolves to the latest version)"
 license: MIT
 date-released: 2026-07-14
 keywords:
