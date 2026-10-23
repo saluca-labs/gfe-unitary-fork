@@ -1,0 +1,31 @@
+Captured 2026-10-22 from a clean clone of saluca-labs/gfe-unitary-fork (branch from origin/master).
+Python 3.12.10, numpy 2.4.6, sympy 1.14.0, scipy 1.17.1, mpmath 1.3.0, PYTHONIOENCODING=utf-8.
+Commands, run from the repository root (the '$ ' lines in the image are these commands; every other line is the unedited output):
+  python continuum/opv_spectrum.py
+  python continuum/opv_sol3.py
+Rendered with rich Console(record=True).save_svg, then headless Chromium (playwright) to PNG, ligatures off.
+
+----- captured text -----
+$ python continuum/opv_spectrum.py
+Solution 1 [OPV Table1: 4, 2.02] (N=9): critical exponents theta (Re>0=relevant):
+    +4.000+0.000i  <-- relevant
+    +2.021+0.000i  <-- relevant
+    -1.399+0.000i
+    -4.283+0.000i
+    -6.692+0.000i
+    -8.930+0.000i
+    -10.892+0.000i
+    -12.958+0.000i
+    -14.759+0.000i
+    -16.723+0.000i
+    => 2 relevant; leading = +4.000
+
+$ python continuum/opv_sol3.py
+Solution 3 residual identically zero: False  (numeric @r=1,3: [(-4.16586379064052e-39+0j), (-1.8417307339640025e-39+0j)] )
+Solution 3 spectrum [OPV Table1: 4, 2.4+-0.8i, 0.13]:
+    +4.000+0.000i  <-- relevant
+    +2.413+0.806i  <-- relevant
+    +2.413-0.806i  <-- relevant
+    +0.131+0.000i  <-- relevant
+    -1.949+0.000i
+    relevant count = 4

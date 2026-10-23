@@ -1,0 +1,58 @@
+# gfe-unitary-fork
+
+> Computation code (Python: numpy, scipy, sympy, mpmath) for the preprint "A Ghost-Free, Unitary, Starobinsky-Class Realization of Gravity from Entropy" by Cristian Ruvalcaba and the Saluca Agentic AI Research Team. MIT licence for everything in the repository (REUSE.toml); the preprint, not in the repository, is CC-BY-4.0 on Zenodo (concept DOI 10.5281/zenodo.21361405).
+
+This is a research archive, not a library: every file in continuum/ is a standalone script, run from the repo root with no arguments, that prints its result. Failed attempts are kept on purpose. The critical spectrum was obtained with the Ohta-Percacci-Vacca parametrization (opv_*.py), not with the earlier fR_*.py solvers; the README's original "not obtained" status is superseded (see its dated correction). The RG trajectory to the fork's exact IR ratios remains undecided.
+
+If a script, command or doc is not listed here, it does not exist in this repository. Every script runs as `python continuum/<name>.py` from the repo root, with no arguments, flags or input files; there is no package, CLI, server or API. The only cross-script import is `from cheb import map_to`.
+
+## Start here
+
+- [README.md](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/README.md): status and dated correction, how-it-works diagram, install, quickstart, reproduce-a-result table
+- [AGENTS.md](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/AGENTS.md): orientation for agents: read order, what is and is not in the repo, the only numbers to trust, checks
+
+## In depth
+
+- [continuum/README.md](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/README.md): per-script guide with the dated outcome of every attempt (later updates supersede the earlier bottom line)
+
+## Code: critical spectrum and trajectory (Ohta-Percacci-Vacca parametrization)
+
+- [continuum/opv_verify.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/opv_verify.py): checks OPV Solution 1 satisfies the flow equation; prints IS IDENTICALLY ZERO: True
+- [continuum/opv_spectrum.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/opv_spectrum.py): critical exponents around Solution 1 (4.000, 2.021; 2 relevant)
+- [continuum/opv_sol3.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/opv_sol3.py): Solution 3 residual and spectrum (4.000, 2.413 +/- 0.806i, 0.131)
+- [continuum/opv_trajectory.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/opv_trajectory.py): sympy full-flow trajectory test, N=4
+- [continuum/opv_traj_fast.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/opv_traj_fast.py): numeric full-flow trajectory test and relevant-surface scan, N=6
+- [continuum/opv_traj_conv.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/opv_traj_conv.py): truncation convergence study, N=6, 8, 10, 12 (exponent converges, ratios do not)
+
+## Code: fork structure
+
+- [continuum/fork_embedding.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/fork_embedding.py): the fork's f(R) in RG theory space; invariant ratios r_3..r_6 = 4/3, 2, 16/5, 16/3
+- [continuum/scalar_sector.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/scalar_sector.py): canonical dimensions of the scalar-sector operators
+- [continuum/ngfp_mechanism.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/ngfp_mechanism.py): schematic toy of the asymptotic-safety mechanism
+
+## Code: Dietz-Morris single-metric f(R) (fixed point reproduced, spectrum attempts failed)
+
+- [continuum/cheb.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/cheb.py): Chebyshev differentiation instrument (map_to), self-validating; imported by the four spectral solvers
+- [continuum/fR_fixedpoint.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/fR_fixedpoint.py): f(R) fixed point in polynomial truncation (slow, over 5 minutes)
+- [continuum/fR_improved.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/fR_improved.py): RG-improved flow; reproduces the fixed point, exponents spurious
+- [continuum/fR_exponents_fork.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/fR_exponents_fork.py): exponents in a simplified scheme (fails) and fork embeddability test
+- [continuum/fR_spectral_fp.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/fR_spectral_fp.py): global fixed point by Chebyshev collocation (does not converge)
+- [continuum/fR_spectral_v2.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/fR_spectral_v2.py): collocation on [0, R_c] with regularity at both ends
+- [continuum/fR_spectral_seeded.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/fR_spectral_seeded.py): collocation seeded from the N=8 polynomial fixed point
+- [continuum/fR_homotopy.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/fR_homotopy.py): homotopy continuation from the linear limit
+- [continuum/fR_shooting.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/fR_shooting.py): spike-plot shooting scan
+- [continuum/fR_shoot_select.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/fR_shoot_select.py): physical-branch selection among shooting solutions
+
+## Code: scalar LPA machinery check
+
+- [continuum/lpa_flow.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/lpa_flow.py): scalar LPA Wilson-Fisher flow, d=3
+- [continuum/lpa_scan.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/lpa_scan.py): wide seed scan for the Wilson-Fisher root
+- [continuum/lpa_robust.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/lpa_robust.py): robust root finder, exponent vs truncation order
+- [continuum/lpa_dbg.py](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/continuum/lpa_dbg.py): debug script for the LPA root search
+
+## Optional
+
+- [CITATION.cff](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/CITATION.cff): how to cite (concept DOI)
+- [Zenodo record](https://doi.org/10.5281/zenodo.21361405): the preprint (PDF, LaTeX) and archived code
+- [llms-full.txt](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/llms-full.txt): README.md, AGENTS.md and continuum/README.md in one file
+- [LICENSE](https://github.com/saluca-labs/gfe-unitary-fork/blob/master/LICENSE): MIT
