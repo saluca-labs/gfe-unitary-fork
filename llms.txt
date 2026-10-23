@@ -1,6 +1,6 @@
 # gfe-unitary-fork
 
-> Computation code (Python: numpy, scipy, sympy, mpmath) for the preprint "A Ghost-Free, Unitary, Starobinsky-Class Realization of Gravity from Entropy" by Cristian Ruvalcaba and the Saluca Agentic AI Research Team. MIT licence; the preprint is CC-BY-4.0 on Zenodo (concept DOI 10.5281/zenodo.21361405).
+> Computation code (Python: numpy, scipy, sympy, mpmath) for the preprint "A Ghost-Free, Unitary, Starobinsky-Class Realization of Gravity from Entropy" by Cristian Ruvalcaba and the Saluca Agentic AI Research Team. MIT licence for everything in the repository (REUSE.toml); the preprint, not in the repository, is CC-BY-4.0 on Zenodo (concept DOI 10.5281/zenodo.21361405).
 
 This is a research archive, not a library: every file in continuum/ is a standalone script, run from the repo root with no arguments, that prints its result. Failed attempts are kept on purpose. The critical spectrum was obtained with the Ohta-Percacci-Vacca parametrization (opv_*.py), not with the earlier fR_*.py solvers; the README's original "not obtained" status is superseded (see its dated correction). The RG trajectory to the fork's exact IR ratios remains undecided.
 

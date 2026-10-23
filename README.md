@@ -282,8 +282,10 @@ design. No claim should be treated as established solely because an AI produced 
 
 ## License
 
-Code: [MIT](LICENSE) (SPDX `MIT`). The preprint text is archived separately under CC-BY-4.0 (see
-the Zenodo record).
+Everything in this repository is code or repository docs, under **MIT** (see [`LICENSE`](LICENSE)),
+declared in [`REUSE.toml`](REUSE.toml) ([REUSE](https://reuse.software) layout). The paper, its
+figures and its LaTeX source are not in this repository: they are archived on Zenodo under
+CC-BY-4.0 (see the Zenodo record).
 
 ## Links
 
