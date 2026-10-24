@@ -1,3 +1,5 @@
+![gfe-unitary-fork](docs/img/banner-2026-10-23.jpg)
+
 # Gravity from Entropy - the unitary fork (computation code)
 
 Computation code accompanying the preprint **_A Ghost-Free, Unitary, Starobinsky-Class
